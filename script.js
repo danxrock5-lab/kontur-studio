@@ -3,6 +3,7 @@ const nav = document.querySelector('.main-nav');
 const form = document.querySelector('.contact-form');
 const status = document.querySelector('.form-status');
 const glow = document.querySelector('.cursor-glow');
+const calculator = document.querySelector('.calculator');
 
 menuToggle?.addEventListener('click', () => {
   const isOpen = nav.classList.toggle('open');
@@ -15,6 +16,32 @@ document.querySelectorAll('.main-nav a').forEach((link) => {
     menuToggle?.setAttribute('aria-expanded', 'false');
   });
 });
+
+if (calculator) {
+  const productOptions = calculator.querySelectorAll('[data-group="product"] .calc-option');
+  const timingOptions = calculator.querySelectorAll('[data-group="timing"] .calc-option');
+  const addons = calculator.querySelectorAll('.addons .calc-option');
+  const total = calculator.querySelector('#calc-total');
+  const link = calculator.querySelector('#calc-link');
+  const formatPrice = (value) => `${Math.round(value / 1000) * 1000}`.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽';
+
+  const updateCalculator = () => {
+    const base = Number(calculator.querySelector('.calc-option.active[data-price]')?.dataset.price || 90000);
+    const additions = [...addons].filter((option) => option.classList.contains('active')).reduce((sum, option) => sum + Number(option.dataset.price), 0);
+    const multiplier = Number(calculator.querySelector('[data-group="timing"] .calc-option.active')?.dataset.multiplier || 1);
+    const result = (base + additions) * multiplier;
+    total.textContent = formatPrice(result);
+    link.href = `https://t.me/konturstudiolbot?text=${encodeURIComponent(`Хочу обсудить проект примерно на ${formatPrice(result)}`)}`;
+  };
+
+  [...productOptions, ...timingOptions].forEach((option) => option.addEventListener('click', () => {
+    option.parentElement.querySelectorAll('.calc-option').forEach((item) => item.classList.remove('active'));
+    option.classList.add('active');
+    updateCalculator();
+  }));
+  addons.forEach((option) => option.addEventListener('click', () => { option.classList.toggle('active'); updateCalculator(); }));
+  updateCalculator();
+}
 
 form?.addEventListener('submit', (event) => {
   event.preventDefault();
