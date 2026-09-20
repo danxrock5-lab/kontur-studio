@@ -1,3 +1,5 @@
+import { submissions } from './store.js';
+
 export default async function handler(request, response) {
   if (request.method !== 'POST') {
     return response.status(405).json({ error: 'Method not allowed' });
@@ -13,6 +15,8 @@ export default async function handler(request, response) {
   if (!botToken || !adminChatId) {
     return response.status(500).json({ error: 'Telegram is not configured' });
   }
+
+  submissions.unshift({ name, telegram, message, createdAt: new Date().toISOString() });
 
   const text = [
     'Новая заявка с сайта «контур»',
