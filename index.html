@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      .pricing{padding-top:135px;padding-bottom:150px;background:var(--paper)}.pricing-head{display:grid;grid-template-columns:1fr 1fr;gap:8vw}.pricing-head h2{font-size:clamp(46px,6.3vw,98px);line-height:.95;letter-spacing:-.08em;margin:0}.pricing-head h2 span{color:var(--orange)}.pricing-head p{max-width:340px;margin:12px 0;color:#5d6058;font-size:17px;line-height:1.5}.price-list{margin-top:100px;border-top:1px solid var(--line)}.price-item{display:grid;grid-template-columns:1fr 25%;gap:25px;padding:27px 0;border-bottom:1px solid var(--line)}.price-item h3{font-size:25px;letter-spacing:-.05em;margin:10px 0 7px}.price-item p{color:#696c63;font-size:13px;margin:0}.price-item strong{font-size:20px;letter-spacing:-.04em;text-align:right}.price-label{font:10px var(--mono);color:var(--orange);text-transform:uppercase}.pricing-note{font:11px var(--mono);text-transform:uppercase;margin:35px 0 0;color:var(--muted)}@media(max-width:760px){.pricing{padding-top:100px;padding-bottom:110px}.pricing-head{display:block}.pricing-head p{margin-top:35px}.price-list{margin-top:70px}.price-item{grid-template-columns:1fr}.price-item strong{text-align:left}}
+    </style>
   </head>
   <body>
     <div class="cursor-glow" aria-hidden="true"></div>
@@ -20,6 +23,7 @@
       <nav class="main-nav" aria-label="Основная навигация">
         <a href="#services">Услуги</a>
         <a href="#work">Проекты</a>
+        <a href="#prices">Цены</a>
         <a href="#process">Процесс</a>
       </nav>
       <a class="header-cta" href="#contact">Обсудить проект <span>↗</span></a>
@@ -74,6 +78,17 @@
 
       <section class="manifesto section-pad">
         <div class="manifesto-symbol">✳</div><p>Хороший продукт — это когда технология становится <em>незаметной.</em> А результат — очевидным.</p><span class="manifesto-sign">контур / studio</span>
+      </section>
+
+      <section class="pricing section-pad" id="prices">
+        <div class="section-tag">/ ориентиры по бюджету</div>
+        <div class="pricing-head"><h2>Понятная<br /><span>экономика.</span></h2><p>Фиксируем объём и результат до старта. Финальная оценка зависит от задач, интеграций и сроков, а не появляется из воздуха.</p></div>
+        <div class="price-list">
+          <article class="price-item"><div><span class="price-label">01 / старт</span><h3>Сайт для бизнеса</h3><p>Структура, дизайн, адаптивная вёрстка и подключение аналитики.</p></div><strong>от 90 000 ₽</strong></article>
+          <article class="price-item"><div><span class="price-label">02 / продукт</span><h3>Приложение или сервис</h3><p>UX/UI, личный кабинет, web или mobile-разработка и запуск.</p></div><strong>от 250 000 ₽</strong></article>
+          <article class="price-item"><div><span class="price-label">03 / автоматизация</span><h3>Telegram-бот</h3><p>Сценарии, интеграции, база данных, админка и поддержка.</p></div><strong>от 70 000 ₽</strong></article>
+        </div>
+        <p class="pricing-note">Не продаём часы. Собираем решение под задачу и отвечаем за результат.</p>
       </section>
 
       <section class="process section-pad" id="process">
