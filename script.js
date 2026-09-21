@@ -63,8 +63,7 @@ form?.addEventListener('submit', (event) => {
       form.reset();
     })
     .catch(() => {
-      const telegramMessage = `Заявка с сайта%0AИмя: ${encodeURIComponent(name)}%0ATelegram: ${encodeURIComponent(telegram)}%0AЗадача: ${encodeURIComponent(message)}`;
-      status.innerHTML = `Сервер заявок сейчас недоступен. <a href="https://t.me/konturstudiolbot?text=${telegramMessage}" target="_blank" rel="noreferrer">Открыть Telegram-бота и отправить заявку</a>`;
+      status.textContent = 'Не удалось отправить заявку. Попробуйте ещё раз или напишите нам в Telegram.';
     })
     .finally(() => {
       submitButton.disabled = false;
