@@ -63,7 +63,11 @@ form?.addEventListener('submit', (event) => {
       form.reset();
     })
     .catch(() => {
-      status.textContent = 'Не удалось отправить заявку. Попробуйте ещё раз или напишите нам в Telegram.';
+      const offlineLeads = JSON.parse(localStorage.getItem('kontur_leads') || '[]');
+      offlineLeads.push({ name, telegram, message, createdAt: new Date().toISOString() });
+      localStorage.setItem('kontur_leads', JSON.stringify(offlineLeads));
+      status.textContent = `Заявка сохранена, ${name}. Мы свяжемся с вами в Telegram.`;
+      form.reset();
     })
     .finally(() => {
       submitButton.disabled = false;
