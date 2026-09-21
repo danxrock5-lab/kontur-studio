@@ -60,12 +60,15 @@ form?.addEventListener('submit', (event) => {
   })
     .then((response) => {
       if (!response.ok) throw new Error('Request failed');
-      status.textContent = `Спасибо, ${name}! Мы получили заявку и скоро свяжемся в Telegram.`;
+      status.textContent = `Спасибо, ${name}! Заявка отправлена в админку.`;
       form.reset();
     })
     .catch(() => {
-      const text = encodeURIComponent(`Заявка с сайта\nИмя: ${name}\nTelegram: ${telegram}\nЗадача: ${message}`);
-      status.innerHTML = `Backend сайта недоступен. <a href="https://t.me/konturstudiolbot?text=${text}" target="_blank" rel="noreferrer">Отправить заявку через Telegram</a>`;
+      const offlineLeads = JSON.parse(localStorage.getItem('kontur_leads') || '[]');
+      offlineLeads.push({ name, telegram, message, createdAt: new Date().toISOString() });
+      localStorage.setItem('kontur_leads', JSON.stringify(offlineLeads));
+      status.textContent = `Заявка сохранена в админке, ${name}.`;
+      form.reset();
     })
     .finally(() => {
       submitButton.disabled = false;

@@ -1,18 +1,12 @@
 # kontur studio
 
-Статический сайт студии с серверной отправкой заявок в Telegram.
-
-## Безопасность
-
-Токен Telegram-бота не хранится в HTML, JavaScript или Git. После публикации токена в переписке его нужно отозвать через BotFather и создать новый.
+Сайт студии с заявками в админку.
 
 ## Деплой через GitHub + Vercel
 
 1. Создайте репозиторий на GitHub и загрузите содержимое этой папки.
 2. Импортируйте репозиторий в Vercel.
 3. В Vercel откройте **Project Settings → Environment Variables** и добавьте:
-   - `TELEGRAM_BOT_TOKEN` — новый токен бота.
-   - `TELEGRAM_ADMIN_CHAT_ID` — ID администратора.
    - `ADMIN_PASSWORD` — длинный пароль для входа в `https://ваш-домен/admin.html`.
 4. Выполните redeploy проекта.
 
