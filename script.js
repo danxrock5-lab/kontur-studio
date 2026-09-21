@@ -52,6 +52,15 @@ form?.addEventListener('submit', (event) => {
   submitButton.disabled = true;
   status.textContent = 'Отправляем заявку...';
 
+  if (window.location.hostname.endsWith('github.io')) {
+    const text = encodeURIComponent(`Заявка с сайта\nИмя: ${name}\nTelegram: ${telegram}\nЗадача: ${message}`);
+    window.open(`https://t.me/konturstudiolbot?text=${text}`, '_blank', 'noopener,noreferrer');
+    status.innerHTML = 'Открыл Telegram с готовой заявкой. Нажмите «Отправить» в чате с ботом.';
+    form.reset();
+    submitButton.disabled = false;
+    return;
+  }
+
   fetch('/api/contact', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
