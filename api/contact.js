@@ -20,17 +20,5 @@ export default async function handler(request, response) {
     console.error(error);
     return response.status(503).json({ error: 'Lead storage is unavailable' });
   }
-
-  const botToken = process.env.TELEGRAM_BOT_TOKEN;
-  const adminChatId = process.env.TELEGRAM_ADMIN_CHAT_ID;
-  if (botToken && adminChatId) {
-    const text = ['Новая заявка с сайта «контур»', '', `Имя: ${name.trim()}`, `Telegram: ${telegram.trim()}`, `Задача: ${message.trim()}`].join('\n');
-    const telegramResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: adminChatId, text })
-    });
-    if (!telegramResponse.ok) console.error('Telegram notification failed', telegramResponse.status);
-  }
   return response.status(201).json({ ok: true });
 }
