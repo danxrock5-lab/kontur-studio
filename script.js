@@ -52,16 +52,8 @@ form?.addEventListener('submit', (event) => {
   submitButton.disabled = true;
   status.textContent = 'Отправляем заявку...';
 
-  if (window.location.hostname.endsWith('github.io')) {
-    const text = encodeURIComponent(`Заявка с сайта\nИмя: ${name}\nTelegram: ${telegram}\nЗадача: ${message}`);
-    window.open(`https://t.me/konturstudiolbot?text=${text}`, '_blank', 'noopener,noreferrer');
-    status.innerHTML = 'Открыл Telegram с готовой заявкой. Нажмите «Отправить» в чате с ботом.';
-    form.reset();
-    submitButton.disabled = false;
-    return;
-  }
-
-  fetch('/api/contact', {
+  const apiBase = window.KONTUR_API_URL || '';
+  fetch(`${apiBase}/api/contact`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name, telegram, message })
@@ -72,11 +64,8 @@ form?.addEventListener('submit', (event) => {
       form.reset();
     })
     .catch(() => {
-      const offlineLeads = JSON.parse(localStorage.getItem('kontur_leads') || '[]');
-      offlineLeads.push({ name, telegram, message, createdAt: new Date().toISOString() });
-      localStorage.setItem('kontur_leads', JSON.stringify(offlineLeads));
-      status.textContent = `Заявка сохранена, ${name}. Мы свяжемся с вами в Telegram.`;
-      form.reset();
+      const text = encodeURIComponent(`Заявка с сайта\nИмя: ${name}\nTelegram: ${telegram}\nЗадача: ${message}`);
+      status.innerHTML = `Backend сайта недоступен. <a href="https://t.me/konturstudiolbot?text=${text}" target="_blank" rel="noreferrer">Отправить заявку через Telegram</a>`;
     })
     .finally(() => {
       submitButton.disabled = false;
