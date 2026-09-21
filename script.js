@@ -60,15 +60,22 @@ form?.addEventListener('submit', (event) => {
   })
     .then((response) => {
       if (!response.ok) throw new Error('Request failed');
-      status.textContent = `Спасибо, ${name}! Заявка отправлена в админку.`;
+      status.textContent = 'Заявка отправлена';
       form.reset();
     })
     .catch(() => {
-      const offlineLeads = JSON.parse(localStorage.getItem('kontur_leads') || '[]');
-      offlineLeads.push({ name, telegram, message, createdAt: new Date().toISOString() });
-      localStorage.setItem('kontur_leads', JSON.stringify(offlineLeads));
-      status.textContent = `Заявка сохранена в админке, ${name}.`;
-      form.reset();
+      try {
+        const offlineLeads = JSON.parse(localStorage.getItem('kontur_leads') || '[]');
+        offlineLeads.push({ name, telegram, message, createdAt: new Date().toISOString() });
+        localStorage.setItem('kontur_leads', JSON.stringify(offlineLeads));
+        if (JSON.parse(localStorage.getItem('kontur_leads') || '[]').length < offlineLeads.length) {
+          throw new Error('Lead was not stored');
+        }
+        status.textContent = 'Заявка отправлена';
+        form.reset();
+      } catch {
+        status.textContent = 'Не удалось отправить заявку. Попробуйте ещё раз.';
+      }
     })
     .finally(() => {
       submitButton.disabled = false;

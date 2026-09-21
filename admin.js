@@ -69,4 +69,7 @@ loginForm.addEventListener('submit', async (event) => {
 });
 
 document.querySelector('#refresh').addEventListener('click', loadLeads);
+window.addEventListener('storage', (event) => {
+  if (event.key === 'kontur_leads') loadLeads();
+});
 document.querySelector('#logout').addEventListener('click', () => { localStorage.removeItem(tokenKey); inbox.hidden = true; loginPanel.hidden = false; });
